@@ -1,0 +1,6 @@
+@WoodManagementSystem.WebApi_HostAddress = http://localhost:5190
+
+GET {{WoodManagementSystem.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
