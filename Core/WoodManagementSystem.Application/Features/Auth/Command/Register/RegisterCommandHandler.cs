@@ -36,6 +36,8 @@ namespace WoodManagementSystem.Application.Features.Auth.Command.Register
             IdentityResult result = await userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
+                var newCustomerCart = new CustomerCart(user.Id);
+                await unitOfWork.GetWriteRepository<CustomerCart>().AddAsync(newCustomerCart);
                 if (!await roleManager.RoleExistsAsync("user"))
                     await roleManager.CreateAsync(new Role
                     {

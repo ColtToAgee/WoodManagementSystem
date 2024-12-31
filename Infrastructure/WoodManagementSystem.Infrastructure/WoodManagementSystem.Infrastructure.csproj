@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\WoodManagementSystem.Application\WoodManagementSystem.Application.csproj" />
+    <ProjectReference Include="..\..\Core\WoodManagementSystem.Domain\WoodManagementSystem.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -28,7 +28,7 @@ builder.Services.AddCustomMapper();
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cqrs Api", Version = "v1", Description = "Cqrs Api swagger" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WoodManagement Api", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",

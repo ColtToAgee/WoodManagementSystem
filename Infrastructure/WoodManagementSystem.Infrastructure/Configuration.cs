@@ -2,8 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using SendGrid.Helpers.Mail;
 using System.Text;
+using WoodManagementSystem.Application.Interfaces.Algorithms;
 using WoodManagementSystem.Application.Interfaces.Tokens;
+using WoodManagementSystem.Infrastructure.Algorithms.BinPacking;
 using WoodManagementSystem.Infrastructure.Tokens;
 
 namespace WoodManagementSystem.Infrastructure
@@ -13,8 +16,9 @@ namespace WoodManagementSystem.Infrastructure
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<TokenSettings>(configuration.GetSection("JWT"));//AppSettings içinde oluşturduğumuz JWT ye ulaşmak için kullanıyoruz
+            services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
             services.AddTransient<ITokenService, TokenService>();
-
+            services.AddScoped<IBinPackingAlgorithmService,BinPackingAlgorithm>();
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
