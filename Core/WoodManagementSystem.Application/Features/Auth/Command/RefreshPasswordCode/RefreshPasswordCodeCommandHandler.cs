@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using System.Net.Mail;
 using WoodManagementSystem.Application.Features.Auth.Rules;
+using WoodManagementSystem.Application.Interfaces.Mails;
 using WoodManagementSystem.Domain.Entities;
 
 namespace WoodManagementSystem.Application.Features.Auth.Command.GenerateRefreshPasswordCode
@@ -9,11 +11,13 @@ namespace WoodManagementSystem.Application.Features.Auth.Command.GenerateRefresh
     {
         private readonly UserManager<User> userManager;
         private readonly AuthRules authRules;
+        private readonly IMailService mailService;
 
-        public RefreshPasswordCodeCommandHandler(UserManager<User> userManager, AuthRules authRules)
+        public RefreshPasswordCodeCommandHandler(UserManager<User> userManager, AuthRules authRules,IMailService mailService)
         {
             this.userManager = userManager;
             this.authRules = authRules;
+            this.mailService = mailService;
         }
         public async Task<Unit> Handle(RefreshPasswordCodeCommandRequest request, CancellationToken cancellationToken)
         {
@@ -25,6 +29,8 @@ namespace WoodManagementSystem.Application.Features.Auth.Command.GenerateRefresh
                 user.RefreshPasswordCode = code;
                 user.RefreshPasswordCodeExpiryTime = DateTime.UtcNow.AddMinutes(3);
                 await userManager.UpdateAsync(user);
+                var newMessage = new MailMessage(from:"",to: user.Email, subject: "Şifre Sıfırlama Maili", body: $"Şifre sıfırlama kodunuz: {code}");
+                await mailService.SendMail(newMessage);
             }
             return Unit.Value;
         }

@@ -1,9 +1,9 @@
-using WoodManagementSystem.Persistence;
-using WoodManagementSystem.Mapper;
-using WoodManagementSystem.Infrastructure;
-using WoodManagementSystem.Application.Exceptions;
 using Microsoft.OpenApi.Models;
 using WoodManagementSystem.Application;
+using WoodManagementSystem.Application.Exceptions;
+using WoodManagementSystem.Infrastructure;
+using WoodManagementSystem.Mapper;
+using WoodManagementSystem.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,11 +57,19 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.Use(async (context, next) =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    if (context.Request.Path == "/")
+    {
+        context.Response.Redirect("/swagger");
+        return;
+    }
+    await next();
+});
 
 app.ConfigureExceptionHandlingMiddleware();
 

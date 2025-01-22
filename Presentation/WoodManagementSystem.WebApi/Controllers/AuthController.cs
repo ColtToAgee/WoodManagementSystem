@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WoodManagementSystem.Application.Features.Auth.Command.AdminRegister;
+using WoodManagementSystem.Application.Features.Auth.Command.GenerateRefreshPasswordCode;
 using WoodManagementSystem.Application.Features.Auth.Command.Login;
 using WoodManagementSystem.Application.Features.Auth.Command.RefreshToken;
 using WoodManagementSystem.Application.Features.Auth.Command.Register;
@@ -41,8 +42,12 @@ namespace WoodManagementSystem.WebApi.Controllers
             return StatusCode(StatusCodes.Status200OK, response);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> GenerateRefreshPasswordCode()
+        [HttpPost]
+        public async Task<IActionResult> GenerateRefreshPasswordCode(RefreshPasswordCodeCommandRequest request)
+        {
+            var response = await mediator.Send(request);
+            return StatusCode(StatusCodes.Status200OK, response);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Revoke(RevokeCommandRequest request)

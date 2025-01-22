@@ -18,7 +18,7 @@ namespace WoodManagementSystem.Infrastructure.Mails
             this.mailSettings = mailSettings.Value;
             this.unitOfWork = unitOfWork;
         }
-        public async void SendMail(MailMessage message)
+        public async Task SendMail(MailMessage message)
         {
             SmtpClient client = new SmtpClient();
             MailAddress fromTo = new MailAddress(mailSettings.FromTo);
