@@ -2,7 +2,7 @@
 
 namespace WoodManagementSystem.Application.Features.Users.Command.UpdateUser
 {
-    public class UpdateUserCommandRequest:IRequest<UpdateUserCommandResponse>
+    public class AdminUpdateUserCommandRequest : IRequest<AdminUpdateUserCommandResponse>
     {
         public int Id { get; set; }
         public string Email { get; set; }

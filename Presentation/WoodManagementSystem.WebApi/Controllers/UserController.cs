@@ -31,13 +31,26 @@ namespace WoodManagementSystem.WebApi.Controllers
         }
 
         /// <summary>
+        /// Kullanıcının kendi bilgilerini düzenleme yapmasını sağlayan api
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize(Roles ="user")]
+        public async Task<IActionResult> UpdateUser(UpdateUserCommandRequest request)
+        {
+            var response = await mediator.Send(request);
+            return StatusCode(StatusCodes.Status200OK, response);
+        }
+
+        /// <summary>
         /// Kullanıcı bilgilerini güncellemeyi sağlayan api
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateUser(UpdateUserCommandRequest request)
+        public async Task<IActionResult> AdminUpdateUser(AdminUpdateUserCommandRequest request)
         {
             var response = await mediator.Send(request);
             return StatusCode(StatusCodes.Status200OK, response);

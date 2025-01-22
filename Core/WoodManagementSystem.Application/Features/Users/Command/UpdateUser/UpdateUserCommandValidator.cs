@@ -1,14 +1,12 @@
-﻿using FluentValidation;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace WoodManagementSystem.Application.Features.Users.Command.UpdateUser
 {
-    public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommandRequest>
+    internal class UpdateUserCommandValidator
     {
-        public UpdateUserCommandValidator()
-        {
-            RuleFor(x => x.Id).NotEmpty();
-            RuleFor(x => x.Email).NotEmpty().MaximumLength(60).MinimumLength(8).EmailAddress().WithName("Email");
-            RuleFor(x => x.Password).NotEmpty().MaximumLength(50).MinimumLength(6).WithName("Şifre");
-        }
     }
 }

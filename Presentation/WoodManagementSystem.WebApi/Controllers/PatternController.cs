@@ -27,8 +27,8 @@ namespace WoodManagementSystem.WebApi.Controllers
         [Authorize(Roles ="admin,user")]
         public async Task<IActionResult> GetAllPatterns()
         {
-            await mediator.Send(new GetAllPatternsQueryRequest());
-            return StatusCode(StatusCodes.Status200OK);
+            var response = await mediator.Send(new GetAllPatternsQueryRequest());
+            return StatusCode(StatusCodes.Status200OK,response);
         }
 
         /// <summary>

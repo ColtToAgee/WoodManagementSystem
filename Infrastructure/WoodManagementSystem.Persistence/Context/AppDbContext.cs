@@ -23,6 +23,8 @@ namespace WoodManagementSystem.Persistence.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Pattern> Patterns { get; set; }
+        public DbSet<CustomerCart> CustomerCarts { get; set; }
+        public DbSet<CustomerCartItem> CustomerCartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -11,5 +11,10 @@ namespace WoodManagementSystem.Application.Features.Users.Rules
             if (user is null) throw new UserIsNotFoundException();
             return Task.CompletedTask;
         }
+        public Task YouCannotChangeAnotherUserInformation(int loggedUserId,int requestUserId)
+        {
+            if (loggedUserId != requestUserId) throw new YouCannotChangeAnotherUserInformationException();
+            return Task.CompletedTask;
+        }
     }
 }

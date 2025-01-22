@@ -2,7 +2,7 @@
 
 namespace WoodManagementSystem.Application.Features.Users.Command.UpdateUser
 {
-    public class UpdateUserCommandResponse:BaseResponse
+    public class AdminUpdateUserCommandResponse : BaseResponse
     {
     }
 }

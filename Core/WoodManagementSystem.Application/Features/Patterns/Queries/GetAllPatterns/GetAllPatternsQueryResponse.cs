@@ -12,5 +12,6 @@ namespace WoodManagementSystem.Application.Features.Patterns.Queries.GetAllPatte
         public double Width { get; set; }
         public double Height { get; set; }
         public double Cost { get; set; }
+        public string PatternName { get; set; }
     }
 }

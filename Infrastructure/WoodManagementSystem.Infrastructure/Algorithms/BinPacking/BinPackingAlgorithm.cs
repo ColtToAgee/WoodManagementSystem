@@ -170,19 +170,19 @@ namespace WoodManagementSystem.Infrastructure.Algorithms.BinPacking
             var edgeBandArray = size.EdgeBand.ToCharArray();
             if (edgeBandArray[0]=='4')
             {
-                size.DimensionLength += 10; 
+                size.DimensionLength += 1.5; 
             }
             if (edgeBandArray[1] == '4')
             {
-                size.DimensionLength += 10;
+                size.DimensionLength += 1.5;
             }
             if (edgeBandArray[2] == '4')
             {
-                size.DimensionWidth += 10;
+                size.DimensionWidth += 1.5;
             }
             if (edgeBandArray[3] == '4')
             {
-                size.DimensionWidth += 10;
+                size.DimensionWidth += 1.5;
             }
             return size;
         }
