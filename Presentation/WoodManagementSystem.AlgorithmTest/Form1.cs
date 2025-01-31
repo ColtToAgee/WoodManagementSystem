@@ -23,420 +23,494 @@ namespace WoodManagementSystem.AlgorithmTest
             setupWindows(g);
 
         }
+        //List<OrderDetails> orderDetails = new List<OrderDetails>()
+        //    {
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                                                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+        //                        new OrderDetails()
+        //{
+        //    DimensionWidth = 40,
+        //            DimensionLength = 70
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 60
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 50,
+        //            DimensionLength = 50
+        //        },
+        //        new OrderDetails()
+        //{
+        //    DimensionWidth = 70,
+        //            DimensionLength = 70
+        //        },
+
+        //    };
+
         public void setupWindows(Graphics g)
         {
-            List<OrderDetails> orderDetails = new List<OrderDetails>()
-            {
-                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-                                new OrderDetails()
-                {
-                    DimensionWidth=40,
-                    DimensionLength = 70
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 60
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=50,
-                    DimensionLength = 50
-                },
-                new OrderDetails()
-                {
-                    DimensionWidth=70,
-                    DimensionLength = 70
-                },
-
-            };
-            BinPackingAlgoritm algorithm = new BinPackingAlgoritm();
+            BinPackingAlgorithm algorithm = new BinPackingAlgorithm();
             Pattern pattern = new Pattern()
             {
                 Width = 400,
                 Height = 400,
             };
             var layoutList = new List<Layout>();
-            var deneme = algorithm.Pack(orderDetails,pattern,layoutList);
+            var newCustomerCartItems = new List<CustomerCartItem>()
+            {
+                new CustomerCartItem()
+                {
+                    Id= 1,
+                    DimensionWidth = 160,
+                    DimensionLength= 112,
+                    EdgeBand= "4444"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 2,
+                    DimensionWidth = 146.4,
+                    DimensionLength= 106,
+                    EdgeBand= "4044"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 3,
+                    DimensionWidth = 146.4,
+                    DimensionLength= 106,
+                    EdgeBand= "4444"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 4,
+                    DimensionWidth = 152.8,
+                    DimensionLength= 106,
+                    EdgeBand= "4044"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 5,
+                    DimensionWidth = 144,
+                    DimensionLength= 104,
+                    EdgeBand= "4444"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 6,
+                    DimensionWidth = 144,
+                    DimensionLength= 104,
+                    EdgeBand= "4444"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 7,
+                    DimensionWidth = 170,
+                    DimensionLength= 112,
+                    EdgeBand= "4444"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 8,
+                    DimensionWidth = 170,
+                    DimensionLength= 112,
+                    EdgeBand= "4444"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 9,
+                    DimensionWidth = 147,
+                    DimensionLength= 112,
+                    EdgeBand= "4444"
+                },
+               new CustomerCartItem()
+                {
+                    Id= 10,
+                    DimensionWidth = 147,
+                    DimensionLength= 112,
+                    EdgeBand= "4444"
+                },
+            };
+            var deneme = algorithm.Pack(newCustomerCartItems, pattern, layoutList);
             float offsetX = 0; // X eksenindeki boþluk
             float offsetY = 0; // Y eksenindeki boþluk
             foreach (var l in deneme)

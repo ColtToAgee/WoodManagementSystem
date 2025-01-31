@@ -15,6 +15,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var env = builder.Environment;
 builder.Configuration
     .SetBasePath(env.ContentRootPath)
@@ -74,6 +84,8 @@ app.Use(async (context, next) =>
 app.ConfigureExceptionHandlingMiddleware();
 
 app.UseAuthorization();
+
+app.UseCors("AllowAllOrigins");
 
 app.MapControllers();
 

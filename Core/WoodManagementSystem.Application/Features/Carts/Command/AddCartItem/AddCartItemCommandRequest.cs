@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using WoodManagementSystem.Domain.Entities;
+using WoodManagementSystem.Application.DTOs;
 
 namespace WoodManagementSystem.Application.Features.Carts.Command.AddCartItem
 {
     public class AddCartItemCommandRequest : IRequest<AddCartItemCommandResponse>
     {
-        public IList<CustomerCartItem> CustomerCartItems { get; set; }
+        public IList<CustomerCartItemDto> CustomerCartItems { get; set; }
     }
 }

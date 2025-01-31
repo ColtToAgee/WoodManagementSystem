@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using WoodManagementSystem.Domain.Entities;
+using WoodManagementSystem.Application.DTOs;
 
 namespace WoodManagementSystem.Application.Features.Carts.Command.AddCartItem
 {
@@ -10,7 +10,7 @@ namespace WoodManagementSystem.Application.Features.Carts.Command.AddCartItem
             RuleFor(x => x.CustomerCartItems).NotEmpty().ForEach(x => x.SetValidator(new CustomerCartItemValidator()));
         }
     }
-    public class CustomerCartItemValidator : AbstractValidator<CustomerCartItem>
+    public class CustomerCartItemValidator : AbstractValidator<CustomerCartItemDto>
     {
         public CustomerCartItemValidator()
         {
