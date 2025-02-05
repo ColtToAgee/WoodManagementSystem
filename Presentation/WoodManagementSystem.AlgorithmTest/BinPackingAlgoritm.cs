@@ -13,7 +13,7 @@ namespace WoodManagementSystem.AlgorithmTest
     public class BinPackingAlgorithm
     {
         private int WhitespaceWeight = 1;
-        private int SideLengthWeight = 20000;
+        private int SideLengthWeight = 2000000000;
 
         public bool Intersects(CustomerCartItem a, CustomerCartItem b)
         {
@@ -148,10 +148,7 @@ namespace WoodManagementSystem.AlgorithmTest
         public List<int> PreOrder(List<CustomerCartItem> sizes)
         {
             var order = new List<int>();
-            for (var i = 0; i < sizes.Count(); i++)
-            {
-                order.Add(i);
-            }
+            order = Enumerable.Range(0, sizes.Count()).ToList();
             order.Sort((a, b) => { return (int)(sizes[b].DimensionWidth * sizes[b].DimensionLength - sizes[a].DimensionWidth * sizes[a].DimensionLength); });
             return order;
         }
@@ -159,9 +156,7 @@ namespace WoodManagementSystem.AlgorithmTest
         {
             for (var i = 0; i < layout.Rects.Count(); i++)
             {
-                var temp = layout.Rects[order[i]];
-                layout.Rects[order[i]] = layout.Rects[i];
-                layout.Rects[i] = temp;
+                (layout.Rects[i], layout.Rects[order[i]]) = (layout.Rects[order[i]], layout.Rects[i]);
             }
             return layout;
         }
@@ -198,16 +193,39 @@ namespace WoodManagementSystem.AlgorithmTest
             {
                 return layoutList;
             }
+            for (var i = 0; i < sizes.Count(); i++)
+            {
+                if (sizes[i].EdgeBand != "0000")
+                {
+                    var tempSize = CheckEdgeBand(sizes[i]);
+                    sizes[i] = tempSize;
+                }
+            }
             var order = PreOrder(sizes);
             for (var i = 0; i < sizes.Count(); i++)
             {
-                var size = sizes[order[i]];
-                if (size.EdgeBand != "0000")
-                {
-                    size = CheckEdgeBand(size);
-                }
-                var rect = FindBestRect(layout, size);
-                layout.Rects.Add(rect);
+                var originalSize = sizes[order[i]];
+
+
+                // Hem normal hem de döndürülmüş haliyle en iyi yerleşimi bul
+                var rectNormal = FindBestRect(layout, originalSize);
+
+                (originalSize.DimensionWidth, originalSize.DimensionLength) = (originalSize.DimensionLength, originalSize.DimensionWidth);
+                var rectRotated = FindBestRect(layout, originalSize);
+
+                // Test için geçici layout'lar oluştur
+                var layoutNormal = layout.DeepCopy();
+                layoutNormal.Rects.Add(rectNormal);
+                var scoreNormal = Rate(layoutNormal);
+
+                var layoutRotated = layout.DeepCopy();
+                layoutRotated.Rects.Add(rectRotated);
+                var scoreRotated = Rate(layoutRotated);
+
+                // En iyi skoru seç
+                var bestRect = scoreRotated < scoreNormal ? rectRotated : rectNormal;
+
+                layout.Rects.Add(bestRect);
 
                 var bounds = FindBounds(layout.Rects);
                 if (pattern.Width < bounds.Width || pattern.Height < bounds.Height)

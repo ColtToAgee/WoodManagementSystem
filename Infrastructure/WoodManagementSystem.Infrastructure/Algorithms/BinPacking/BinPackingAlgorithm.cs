@@ -148,10 +148,7 @@ namespace WoodManagementSystem.Infrastructure.Algorithms.BinPacking
         public List<int> PreOrder(List<CustomerCartItem> sizes)
         {
             var order = new List<int>();
-            for (var i = 0; i < sizes.Count(); i++)
-            {
-                order.Add(i);
-            }
+            order = Enumerable.Range(0, sizes.Count()).ToList();
             order.Sort((a, b) => { return (int)(sizes[b].DimensionWidth * sizes[b].DimensionLength - sizes[a].DimensionWidth * sizes[a].DimensionLength); });
             return order;
         }
@@ -198,14 +195,18 @@ namespace WoodManagementSystem.Infrastructure.Algorithms.BinPacking
             {
                 return layoutList;
             }
+            for (var i = 0; i < sizes.Count(); i++)
+            {
+                if (sizes[i].EdgeBand != "0000")
+                {
+                    var tempSize = CheckEdgeBand(sizes[i]);
+                    sizes[i] = tempSize;
+                }
+            }
             var order = PreOrder(sizes);
             for (var i = 0; i < sizes.Count(); i++)
             {
                 var size = sizes[order[i]];
-                if (size.EdgeBand != "0000")
-                {
-                    size = CheckEdgeBand(size);
-                }
                 var rect = FindBestRect(layout, size);
                 layout.Rects.Add(rect);
 
