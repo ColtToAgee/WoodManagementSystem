@@ -1,4 +1,5 @@
-﻿using WoodManagementSystem.Application.Interfaces.Algorithms;
+﻿using WoodManagementSystem.Application.Extensions;
+using WoodManagementSystem.Application.Interfaces.Algorithms;
 using WoodManagementSystem.Application.Interfaces.UnitOfWorks;
 using WoodManagementSystem.Domain.Entities;
 
@@ -74,28 +75,21 @@ namespace WoodManagementSystem.Infrastructure.Algorithms.BinPacking
             return new Bound(width, height);
         }
 
-        public List<Position> FindPositions(List<CustomerCartItem> CustomerCartItem)
+        public List<Position> FindPositions(Pattern pattern)
         {
             var positions = new List<Position>();
-            for (var i = 0; i < CustomerCartItem.Count(); i++)
+            for (var i = 0; i < pattern.Width; i++)
             {
-                var rect = CustomerCartItem[i];
-                for (var x = 0; x < rect.DimensionWidth; x++)
+                for (var j = 0; j < pattern.Height; j++)
                 {
-                    positions.Add(new Position(rect.DimensionX + x, rect.DimensionY + rect.DimensionLength));
-                }
-                for (var y = 0; y < rect.DimensionLength; y++)
-                {
-                    positions.Add(new Position(rect.DimensionX + rect.DimensionWidth, rect.DimensionY + y));
+                    positions.Add(new Position(i, j));
                 }
             }
             return positions;
         }
-        public CustomerCartItem FindBestRect(Layout layout, CustomerCartItem size)
+        public CustomerCartItem FindBestRect(Layout layout, CustomerCartItem size, Pattern pattern)
         {
-            var bestRect = new CustomerCartItem();
-            bestRect.DimensionWidth = size.DimensionWidth;
-            bestRect.DimensionLength = size.DimensionLength;
+            var bestRect = size.DeepCopy();
             bestRect.DimensionX = 0;
             bestRect.DimensionY = 0;
             if (layout.Rects.Count() == 0)
@@ -110,10 +104,10 @@ namespace WoodManagementSystem.Infrastructure.Algorithms.BinPacking
             {
                 Width = 0,
                 Height = 0,
-                Rects = layout.Rects.Slice(0, layout.Rects.Count()),
+                Rects = layout.Rects.DeepCopy(),
             };
             var bestScore = double.PositiveInfinity;
-            var positions = FindPositions(layout.Rects);
+            var positions = FindPositions(pattern);
             for (var i = 0; i < positions.Count(); i++)
             {
                 var pos = positions[i];
@@ -133,7 +127,6 @@ namespace WoodManagementSystem.Infrastructure.Algorithms.BinPacking
                     var size2 = FindBounds(sandBox.Rects);
                     sandBox.Width = size2.Width;
                     sandBox.Height = size2.Height;
-
                     var score = Rate(sandBox);
                     if (score < bestScore)
                     {
@@ -156,18 +149,16 @@ namespace WoodManagementSystem.Infrastructure.Algorithms.BinPacking
         {
             for (var i = 0; i < layout.Rects.Count(); i++)
             {
-                var temp = layout.Rects[order[i]];
-                layout.Rects[order[i]] = layout.Rects[i];
-                layout.Rects[i] = temp;
+                (layout.Rects[i], layout.Rects[order[i]]) = (layout.Rects[order[i]], layout.Rects[i]);
             }
             return layout;
         }
         public CustomerCartItem CheckEdgeBand(CustomerCartItem size)
         {
             var edgeBandArray = size.EdgeBand.ToCharArray();
-            if (edgeBandArray[0]=='4')
+            if (edgeBandArray[0] == '4')
             {
-                size.DimensionLength += 1.5; 
+                size.DimensionLength += 1.5;
             }
             if (edgeBandArray[1] == '4')
             {
@@ -185,50 +176,60 @@ namespace WoodManagementSystem.Infrastructure.Algorithms.BinPacking
         }
         public List<Layout> Pack(List<CustomerCartItem> sizes, Pattern pattern, List<Layout> layoutList)
         {
-            var layout = new Layout()
+            if (sizes.Count == 0) return layoutList;
+
+            var layout = new Layout
             {
                 Width = 0,
                 Height = 0,
                 Rects = new List<CustomerCartItem>()
             };
-            if (sizes.Count() == 0)
-            {
-                return layoutList;
-            }
-            for (var i = 0; i < sizes.Count(); i++)
-            {
-                if (sizes[i].EdgeBand != "0000")
-                {
-                    var tempSize = CheckEdgeBand(sizes[i]);
-                    sizes[i] = tempSize;
-                }
-            }
-            var order = PreOrder(sizes);
-            for (var i = 0; i < sizes.Count(); i++)
-            {
-                var size = sizes[order[i]];
-                var rect = FindBestRect(layout, size);
-                layout.Rects.Add(rect);
 
-                var bounds = FindBounds(layout.Rects);
-                if (pattern.Width < bounds.Width || pattern.Height < bounds.Height)
+            var order = PreOrder(sizes);
+            foreach (var index in order)
+            {
+                var item = sizes[index];
+
+                if (!TryPlaceItem(layout, item, pattern))
                 {
-                    var tempSizes = new List<CustomerCartItem>();
-                    for (int j = 0; j < order.Count() - i; j++)
+                    // Eğer normal yerleştirme başarısızsa, 90 derece döndürmeyi dene
+                    (item.DimensionWidth, item.DimensionLength) = (item.DimensionLength, item.DimensionWidth);
+                    if (!TryPlaceItem(layout, item, pattern))
                     {
-                        tempSizes.Add(sizes[order[j + i]]);
+                        // Eğer döndürerek de yerleştirilemiyorsa eski haline getir ve devam et
+                        (item.DimensionWidth, item.DimensionLength) = (item.DimensionLength, item.DimensionWidth);
                     }
-                    layout.Rects.RemoveAt(layout.Rects.Count() - 1);
-                    Pack(tempSizes, pattern, layoutList);
-                    break;
                 }
-                layout.Width = bounds.Width;
-                layout.Height = bounds.Height;
             }
-            order = PreOrder(layout.Rects);
-            layout = ReOrder(layout, order);
+
+            layout.Width = layout.Rects.Max(r => r.DimensionX + r.DimensionWidth);
+            layout.Height = layout.Rects.Max(r => r.DimensionY + r.DimensionLength);
+
+            layout = ReOrder(layout, PreOrder(layout.Rects));
             layoutList.Add(layout);
+
+            var remainingSizes = sizes.Where(size => !layout.Rects.Any(rect => rect.Id == size.Id)).ToList();
+            if (remainingSizes.Count > 0)
+                Pack(remainingSizes, pattern, layoutList);
+
             return layoutList;
+        }
+
+        // Belirtilen item'i layout'a eklemeye çalışır, başarı durumunu döndürür
+        private bool TryPlaceItem(Layout layout, CustomerCartItem item, Pattern pattern)
+        {
+            var rect = FindBestRect(layout, item, pattern);
+            if (rect == null) return false;
+
+            layout.Rects.Add(rect);
+            var bounds = FindBounds(layout.Rects);
+
+            if (bounds.Width > pattern.Width || bounds.Height > pattern.Height)
+            {
+                layout.Rects.RemoveAt(layout.Rects.Count - 1);
+                return false;
+            }
+            return true;
         }
     }
 }

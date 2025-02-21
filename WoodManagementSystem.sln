@@ -21,8 +21,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodManagementSystem.Persis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodManagementSystem.WebApi", "Presentation\WoodManagementSystem.WebApi\WoodManagementSystem.WebApi.csproj", "{AD39859B-C610-4490-8864-1291EEC3A8FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodManagementSystem.Test", "Presentation\WoodManagementSystem.Test\WoodManagementSystem.Test.csproj", "{F57AF2AE-E574-44AA-AA3F-48BDA5FB2487}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodManagementSystem.AlgorithmTest", "Presentation\WoodManagementSystem.AlgorithmTest\WoodManagementSystem.AlgorithmTest.csproj", "{84CA9CCC-F6F4-4FCE-A3DD-D54BA2515AA5}"
 EndProject
 Global
@@ -55,10 +53,6 @@ Global
 		{AD39859B-C610-4490-8864-1291EEC3A8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD39859B-C610-4490-8864-1291EEC3A8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD39859B-C610-4490-8864-1291EEC3A8FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F57AF2AE-E574-44AA-AA3F-48BDA5FB2487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F57AF2AE-E574-44AA-AA3F-48BDA5FB2487}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F57AF2AE-E574-44AA-AA3F-48BDA5FB2487}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F57AF2AE-E574-44AA-AA3F-48BDA5FB2487}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84CA9CCC-F6F4-4FCE-A3DD-D54BA2515AA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84CA9CCC-F6F4-4FCE-A3DD-D54BA2515AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84CA9CCC-F6F4-4FCE-A3DD-D54BA2515AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -74,7 +68,6 @@ Global
 		{49FF88BC-FF04-40F3-8440-CCD784C03D99} = {B58717D5-007F-4FAE-B00D-DB3949CD5CEF}
 		{4F8D4FD8-8496-4C85-AE8E-6FE6E29A3232} = {B58717D5-007F-4FAE-B00D-DB3949CD5CEF}
 		{AD39859B-C610-4490-8864-1291EEC3A8FE} = {6324D718-19AB-47CD-96B6-25B66FB0E240}
-		{F57AF2AE-E574-44AA-AA3F-48BDA5FB2487} = {6324D718-19AB-47CD-96B6-25B66FB0E240}
 		{84CA9CCC-F6F4-4FCE-A3DD-D54BA2515AA5} = {6324D718-19AB-47CD-96B6-25B66FB0E240}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

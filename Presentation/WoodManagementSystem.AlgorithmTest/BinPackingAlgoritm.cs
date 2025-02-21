@@ -1,11 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using WoodManagementSystem.Domain.Entities;
 
 namespace WoodManagementSystem.AlgorithmTest
@@ -74,28 +67,21 @@ namespace WoodManagementSystem.AlgorithmTest
             return new Bound(width, height);
         }
 
-        public List<Position> FindPositions(List<CustomerCartItem> CustomerCartItem)
+        public List<Position> FindPositions(Pattern pattern)
         {
             var positions = new List<Position>();
-            for (var i = 0; i < CustomerCartItem.Count(); i++)
+            for (var i = 0; i < pattern.Width; i++)
             {
-                var rect = CustomerCartItem[i];
-                for (var x = 0; x < rect.DimensionWidth; x++)
+                for(var j = 0; j < pattern.Height; j++)
                 {
-                    positions.Add(new Position(rect.DimensionX + x, rect.DimensionY + rect.DimensionLength));
-                }
-                for (var y = 0; y < rect.DimensionLength; y++)
-                {
-                    positions.Add(new Position(rect.DimensionX + rect.DimensionWidth, rect.DimensionY + y));
+                    positions.Add(new Position(i, j));
                 }
             }
             return positions;
         }
-        public CustomerCartItem FindBestRect(Layout layout, CustomerCartItem size)
+        public CustomerCartItem FindBestRect(Layout layout, CustomerCartItem size, Pattern pattern)
         {
-            var bestRect = new CustomerCartItem();
-            bestRect.DimensionWidth = size.DimensionWidth;
-            bestRect.DimensionLength = size.DimensionLength;
+            var bestRect = size.DeepCopy();
             bestRect.DimensionX = 0;
             bestRect.DimensionY = 0;
             if (layout.Rects.Count() == 0)
@@ -110,10 +96,10 @@ namespace WoodManagementSystem.AlgorithmTest
             {
                 Width = 0,
                 Height = 0,
-                Rects = layout.Rects.Slice(0, layout.Rects.Count()),
+                Rects = layout.Rects.DeepCopy(),
             };
             var bestScore = double.PositiveInfinity;
-            var positions = FindPositions(layout.Rects);
+            var positions = FindPositions(pattern);
             for (var i = 0; i < positions.Count(); i++)
             {
                 var pos = positions[i];
@@ -133,7 +119,6 @@ namespace WoodManagementSystem.AlgorithmTest
                     var size2 = FindBounds(sandBox.Rects);
                     sandBox.Width = size2.Width;
                     sandBox.Height = size2.Height;
-
                     var score = Rate(sandBox);
                     if (score < bestScore)
                     {
@@ -181,73 +166,127 @@ namespace WoodManagementSystem.AlgorithmTest
             }
             return size;
         }
+        public List<CustomerCartItem> FindEmptySpaces(Layout layout)
+        {
+            var emptySpaces = new List<CustomerCartItem>();
+
+            // Layout'un tamamında boşluklar oluşturmak için bir 2D alan modellemesi yapıyoruz
+            int layoutWidth = (int)Math.Ceiling(layout.Width);  // Genişliği int'e çevir
+            int layoutHeight = (int)Math.Ceiling(layout.Height); // Yüksekliği int'e çevir
+
+            // Layout üzerinde her bir hücreyi kontrol ediyoruz ve boş alanları CustomerCartItem olarak ekliyoruz
+            var filledSpaces = new bool[layoutWidth, layoutHeight];
+
+            // Tüm yerleştirilmiş CustomerCartItem'lar üzerinde döngü
+            foreach (var rect in layout.Rects)
+            {
+                // Rectangle'ın alanını doldur
+                int startX = (int)rect.DimensionX;
+                int startY = (int)rect.DimensionY;
+                int endX = (int)(rect.DimensionX + rect.DimensionWidth);
+                int endY = (int)(rect.DimensionY + rect.DimensionLength);
+
+                // Eğer sağlanan alan boyutları layout'un boyutları dışında kalıyorsa sınırları kontrol et
+                for (int x = startX; x < endX; x++)
+                {
+                    for (int y = startY; y < endY; y++)
+                    {
+                        // Burada dizinin sınırlarını kontrol ediyoruz
+                        if (x >= 0 && x < layoutWidth && y >= 0 && y < layoutHeight)
+                        {
+                            filledSpaces[x, y] = true; // Bu alanda bir öğe var, bu yüzden bu hücreyi "dolduruyoruz"
+                        }
+                    }
+                }
+            }
+
+            // Boş alanları tespit et
+            for (int x = 0; x < layoutWidth; x++)
+            {
+                for (int y = 0; y < layoutHeight; y++)
+                {
+                    if (!filledSpaces[x, y]) // Eğer bu hücre boşsa
+                    {
+                        // Yeni boş alan oluştur
+                        var emptySpace = new CustomerCartItem
+                        {
+                            DimensionX = x,
+                            DimensionY = y,
+                            DimensionWidth = 1, // Başlangıç olarak her bir boşluk 1x1 kabul edebiliriz
+                            DimensionLength = 1 // Burada boşlukların uzunluğu hesaplanabilir
+                        };
+
+                        // Boşlukların birleşmesini sağlamak için daha fazla kod eklenebilir
+                        // Bu basit versiyonda, yalnızca her bir boş hücreyi ayrı bir boş alan olarak kabul ediyoruz.
+                        emptySpaces.Add(emptySpace);
+                    }
+                }
+            }
+
+            return emptySpaces;
+        }
+
         public List<Layout> Pack(List<CustomerCartItem> sizes, Pattern pattern, List<Layout> layoutList)
         {
-            var layout = new Layout()
+            if (sizes.Count == 0) return layoutList;
+
+            var layout = new Layout
             {
                 Width = 0,
                 Height = 0,
                 Rects = new List<CustomerCartItem>()
             };
-            if (sizes.Count() == 0)
-            {
-                return layoutList;
-            }
-            for (var i = 0; i < sizes.Count(); i++)
-            {
-                if (sizes[i].EdgeBand != "0000")
-                {
-                    var tempSize = CheckEdgeBand(sizes[i]);
-                    sizes[i] = tempSize;
-                }
-            }
+
             var order = PreOrder(sizes);
-            for (var i = 0; i < sizes.Count(); i++)
+            foreach (var index in order)
             {
-                var originalSize = sizes[order[i]];
+                var item = sizes[index];
 
-
-                // Hem normal hem de döndürülmüş haliyle en iyi yerleşimi bul
-                var rectNormal = FindBestRect(layout, originalSize);
-
-                (originalSize.DimensionWidth, originalSize.DimensionLength) = (originalSize.DimensionLength, originalSize.DimensionWidth);
-                var rectRotated = FindBestRect(layout, originalSize);
-
-                // Test için geçici layout'lar oluştur
-                var layoutNormal = layout.DeepCopy();
-                layoutNormal.Rects.Add(rectNormal);
-                var scoreNormal = Rate(layoutNormal);
-
-                var layoutRotated = layout.DeepCopy();
-                layoutRotated.Rects.Add(rectRotated);
-                var scoreRotated = Rate(layoutRotated);
-
-                // En iyi skoru seç
-                var bestRect = scoreRotated < scoreNormal ? rectRotated : rectNormal;
-
-                layout.Rects.Add(bestRect);
-
-                var bounds = FindBounds(layout.Rects);
-                if (pattern.Width < bounds.Width || pattern.Height < bounds.Height)
+                if (!TryPlaceItem(layout, item, pattern))
                 {
-                    var tempSizes = new List<CustomerCartItem>();
-                    for (int j = 0; j < order.Count() - i; j++)
+                    // Eğer normal yerleştirme başarısızsa, 90 derece döndürmeyi dene
+                    (item.DimensionWidth, item.DimensionLength) = (item.DimensionLength, item.DimensionWidth);
+                    if (!TryPlaceItem(layout, item, pattern))
                     {
-                        tempSizes.Add(sizes[order[j + i]]);
+                        // Eğer döndürerek de yerleştirilemiyorsa eski haline getir ve devam et
+                        (item.DimensionWidth, item.DimensionLength) = (item.DimensionLength, item.DimensionWidth);
                     }
-                    layout.Rects.RemoveAt(layout.Rects.Count() - 1);
-                    Pack(tempSizes, pattern, layoutList);
-                    break;
                 }
-                layout.Width = bounds.Width;
-                layout.Height = bounds.Height;
             }
-            order = PreOrder(layout.Rects);
-            layout = ReOrder(layout, order);
+
+            layout.Width = layout.Rects.Max(r => r.DimensionX + r.DimensionWidth);
+            layout.Height = layout.Rects.Max(r => r.DimensionY + r.DimensionLength);
+
+            layout = ReOrder(layout, PreOrder(layout.Rects));
             layoutList.Add(layout);
+
+            var remainingSizes = sizes.Where(size => !layout.Rects.Any(rect => rect.Id == size.Id)).ToList();
+            if (remainingSizes.Count > 0)
+                Pack(remainingSizes, pattern, layoutList);
+
             return layoutList;
         }
+
+        // Belirtilen item'i layout'a eklemeye çalışır, başarı durumunu döndürür
+        private bool TryPlaceItem(Layout layout, CustomerCartItem item, Pattern pattern)
+        {
+            var rect = FindBestRect(layout, item, pattern);
+            if (rect == null) return false;
+
+            layout.Rects.Add(rect);
+            var bounds = FindBounds(layout.Rects);
+
+            if (bounds.Width > pattern.Width || bounds.Height > pattern.Height)
+            {
+                layout.Rects.RemoveAt(layout.Rects.Count - 1);
+                return false;
+            }
+            return true;
+        }
     }
+
+
+
 
     public class Layout
     {

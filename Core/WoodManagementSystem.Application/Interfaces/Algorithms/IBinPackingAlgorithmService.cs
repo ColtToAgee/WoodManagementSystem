@@ -9,8 +9,8 @@ namespace WoodManagementSystem.Application.Interfaces.Algorithms
         double WhiteSpace(Layout layout);
         double Rate(Layout layout);
         Bound FindBounds(List<CustomerCartItem> CustomerCartItem);
-        List<Position> FindPositions(List<CustomerCartItem> CustomerCartItem);
-        CustomerCartItem FindBestRect(Layout layout, CustomerCartItem size);
+        List<Position> FindPositions(Pattern pattern);
+        CustomerCartItem FindBestRect(Layout layout, CustomerCartItem size,Pattern pattern);
         List<int> PreOrder(List<CustomerCartItem> sizes);
         Layout ReOrder(Layout layout, List<int> order);
         public List<Layout> Pack(List<CustomerCartItem> sizes, Pattern pattern, List<Layout> layoutList);
